@@ -15,9 +15,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/product', [ProductsController::class, 'index']);
+
+
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+
+
+
+
+Route::get('/product', [ProductsController::class, 'index']);
 Route::post('/product',[ProductsController::class, 'store']);
 Route::get('/product/search/{name}',[ProductsController::class, 'search']);
 Route::put('/product/{id}',[ProductsController::class, 'update']);
