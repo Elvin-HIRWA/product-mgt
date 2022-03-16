@@ -16,7 +16,8 @@ use App\Http\Controllers\UserController;
 */
 
 
-
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -29,6 +30,7 @@ Route::get('/product/search/{name}',[ProductsController::class, 'search'])->midd
 Route::put('/product/{id}',[ProductsController::class, 'update'])->middleware("auth:sanctum");
 Route::delete('/product/{id}',[ProductsController::class, 'destroy'])->middleware("auth:sanctum");
 Route::get('/product/{id}',[ProductsController::class, 'show'])->middleware("auth:sanctum");
+Route::post('/logout', [UserController::class, 'logout'])->middleware("auth:sanctum");
 
 
 

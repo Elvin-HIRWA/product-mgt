@@ -18,6 +18,54 @@ public function __construct(Product $product){
 
     /**
      * Display a listing of the resource.
+     * @OA\Get(
+     *   path="/api/product",
+     *   tags={"Products"}, 
+     *   security={ {"sanctum": {} }}, 
+     *    @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ),   
+     *   @OA\Response(
+     *     response="200",
+     *     description="Success|Returns Products list",
+     *     @OA\JsonContent(
+     *       type="array",
+     *       @OA\Items(
+     *           @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Iphone 14"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="description",
+     *                         type="string",
+     *                         example="this is products"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="quantity",
+     *                         type="integer",
+     *                         example="6"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="price",
+     *                         type="decimal",
+     *                         example="65.5"
+     *                      ),
+     * )
+     *     )
+     *   )
+     * )
      *
      * @return \Illuminate\Http\Response
      */    
