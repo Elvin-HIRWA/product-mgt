@@ -248,6 +248,90 @@ public function __construct(Product $product){
 
     /**
      * Update the specified resource in storage.
+     * 
+     * * @OA\Put (
+     *     path="/api/product/{id}",
+     *     tags={"Products"},
+     *     security={ {"bearer": {} }},
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="description",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="code",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="price",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="post",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="quantity",
+     *                          type="string"
+     *                      ),
+     *                 ),
+     *                 example={
+     *                     "name":"laptop",
+     *                     "description":"This is portable laptop",
+     *                     "price":"101",
+     *                     "quantity":"28",
+     *                }
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="name", type="string", example="laptop"),
+     *              @OA\Property(property="description", type="string", example="this is portable laptop"),
+     *              @OA\Property(property="price", type="string", example="404"),
+     *              @OA\Property(property="quantity", type="string", example="28"),
+     *          )
+     *      ),
+     *   @OA\Response(
+     *    response=404,
+     *    description="NotFound",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product Not Found"),
+     *    )
+     * ),
+     *      @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ),
+     * )
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -263,8 +347,48 @@ public function __construct(Product $product){
         }
     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
+     * 
+     *  * @OA\Delete (
+     *     path="/api/product/{id}",
+     *     tags={"Products"},
+     *     security={ {"bearer": {} }},
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="msg", type="string", example="Employee deletion success")
+     *         )
+     *     ),
+     *  @OA\Response(
+     *    response=404,
+     *    description="NotFound",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product Not Found"),
+     *    )
+     * ),
+     *      @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ),   
+     * )
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -279,10 +403,48 @@ public function __construct(Product $product){
         }
     }
 
+/**
+      * Search for Related name in DataBase
+    * @OA\Get (
+     *     path="/api/product/search/{name}",
+     *     tags={"Products"},
+     *     security={ {"bearer": {} }},
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="name",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="name", type="string", example="laptop"),
+     *              @OA\Property(property="description", type="string", example="this is portable computer"),
+     *              @OA\Property(property="price", type="string", example="808"),
+     *              @OA\Property(property="quantity", type="string", example="38"),
+     *         )
+     *     ),
+     *      @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ),   
+     * )
 
-    /* @param  str  $name
-    * @return \Illuminate\Http\Response
-    */
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
    public function search($name)
    {
        return Product::where('name', 'like', '%' . $name . '%')->get();

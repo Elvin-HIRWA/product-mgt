@@ -31,8 +31,3 @@ Route::put('/product/{id}',[ProductsController::class, 'update'])->middleware("a
 Route::delete('/product/{id}',[ProductsController::class, 'destroy'])->middleware("auth:sanctum");
 Route::get('/product/{id}',[ProductsController::class, 'show'])->middleware("auth:sanctum");
 Route::post('/logout', [UserController::class, 'logout'])->middleware("auth:sanctum");
-
-
-
-
-
