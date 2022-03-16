@@ -14,9 +14,9 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'quantity'
-        
+        'quantity'       
     ];
+}
 
     protected $table = "products";
 
@@ -29,12 +29,6 @@ class Product extends Model
         $product = $this->where("id",$id)->first();
         return $product;
     }
-
-
-
-
-
-
 /**
      * @param int $id
      * @param array $attributes
@@ -54,28 +48,6 @@ class Product extends Model
         return $product;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * @param int $id
      * @return mixed
@@ -86,4 +58,6 @@ class Product extends Model
             throw new ModelNotFoundException("This Product not found");
         }
         return $product->delete();
-}}
+}
+}
+
