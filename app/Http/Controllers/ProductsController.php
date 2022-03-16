@@ -2,50 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $product;
+
+    public function __construct(Product $product){
+        $this->product = $product;
+    }
+
+    
     public function index()
     {
         //
+
+        return Product::all();
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        ]);
 
+        $product = Product::Create($request->all());
+        
+        return response()->json([
+            'msg'=>'Product created',
+            'product' => $product 
+        ]);
+        
+    }
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show($id)
     {
-        //
+        
     }
 
     /**
