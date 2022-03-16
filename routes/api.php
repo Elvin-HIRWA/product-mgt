@@ -14,17 +14,18 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/product', [ProductsController::class, 'index']);
-Route::post('/product',[ProductsController::class, 'store']);
-Route::get('/product/search/{name}',[ProductsController::class, 'search']);
-Route::put('/product/{id}',[ProductsController::class, 'update']);
-Route::delete('/product/{id}',[ProductsController::class, 'destroy']);
-Route::get('/product/{id}',[ProductsController::class, 'show']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/product', [ProductsController::class, 'index'])->middleware("auth:sanctum");
+Route::post('/product',[ProductsController::class, 'store'])->middleware("auth:sanctum");
+Route::get('/product/search/{name}',[ProductsController::class, 'search'])->middleware("auth:sanctum");
+Route::put('/product/{id}',[ProductsController::class, 'update'])->middleware("auth:sanctum");
+Route::delete('/product/{id}',[ProductsController::class, 'destroy'])->middleware("auth:sanctum");
+Route::get('/product/{id}',[ProductsController::class, 'show'])->middleware("auth:sanctum");
 
 
