@@ -74,6 +74,87 @@ public function __construct(Product $product){
         return Product::all();    
     }
 
+    /**
+     * Store a newly created resource in storage.
+     * 
+     * @OA\Post (
+     *     path="/api/product",
+     *     tags={"Products"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                      type="array",
+     *                       @OA\Items(
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="description",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="price",
+     *                          type="decimal"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="quantity",
+     *                          type="integer"
+     *                      ),
+     *                      ),
+     *                 ),
+     *                 example={
+     *                     "name":"Bebe",
+     *                     "description":"this is description",
+     *                     "price":"101",
+     *                     "quantity":"4",
+     *                }
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Bebe"),
+     *              @OA\Property(property="description", type="string", example="this is description"),
+     *              @OA\Property(property="price", type="string", example="40"),
+     *              @OA\Property(property="quantity", type="integer", example="8"),
+    *               @OA\Property(property="updated_at", type="string", example="2022-02-23T07:07:54.000000Z"),
+    *               @OA\Property(property="created_at", type="string", example="2022-02-23T07:07:54.000000Z"),
+     *              @OA\Property(property="id", type="number", example=1)
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="invalid",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="msg", type="string", example="fail"),
+     *          )
+     *      ),
+   
+     *      @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ), 
+     * )
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -92,6 +173,54 @@ public function __construct(Product $product){
         
     }
     /**
+     * Display the specified resource.
+     * 
+     * * @OA\Get (
+     *     path="/api/product/{id}",
+     *     tags={"Products"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="name", type="string", example="Bebe"),
+     *              @OA\Property(property="description", type="string", example="this is description"),
+     *              @OA\Property(property="price", type="string", example="40"),
+     *              @OA\Property(property="quantity", type="integer", example="8"),
+    *               @OA\Property(property="updated_at", type="string", example="2022-02-23T07:07:54.000000Z"),
+    *               @OA\Property(property="created_at", type="string", example="2022-02-23T07:07:54.000000Z"),
+     *              @OA\Property(property="id", type="number", example=1)
+     *         )
+     *     ),
+     *  @OA\Response(
+     *    response=404,
+     *    description="NotFound",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product  Not Found"),
+     *    )
+     * ),
+     *      @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * )   
+     * )
+     *
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
