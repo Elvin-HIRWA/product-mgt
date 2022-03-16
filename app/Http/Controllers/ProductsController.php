@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -19,46 +20,42 @@ public function __construct(Product $product){
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */    
     public function index()
     {
-        //
+        return Product::all();    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        ]);
 
+        $product = Product::Create($request->all());
+        
+        return response()->json([
+            'msg'=>'Product created',
+            'product' => $product 
+        ]);
+        
+    }
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show($id)
     {
+
         $product = $this->product->getProduct($id);
         if($product){
             return response()->json($product);
         }
         return response()->json(["msg"=>"this Product not found"],404);
+
     }
 
     /**
@@ -104,6 +101,7 @@ public function __construct(Product $product){
             return response()->json(["msg"=>$exception->getMessage()],404);
         }
     }
+
 
     /* @param  str  $name
     * @return \Illuminate\Http\Response
