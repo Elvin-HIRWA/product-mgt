@@ -16,7 +16,7 @@ class Product extends Model
         'price',
         'quantity'       
     ];
-}
+
 
     protected $table = "products";
 
@@ -60,4 +60,3 @@ class Product extends Model
         return $product->delete();
 }
 }
-
