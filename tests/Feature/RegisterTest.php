@@ -8,7 +8,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
-{use DatabaseMigrations;
+{
+    use DatabaseMigrations;
     /**
      * A basic feature test example.
      *
@@ -21,7 +22,7 @@ class RegisterTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testUserRegisterSuccessfully() {
+    public function test_User_Register_Successfully() {
 
         $UserData = [
             "name"=>"innocent",
