@@ -14,6 +14,7 @@ class UserController extends Controller
      * @OA\Post (
      *     path="/api/register",
      *     tags={"Users"},
+     *       security= {{ "sanctum": {}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -100,6 +101,7 @@ class UserController extends Controller
      * @OA\Post (
      *     path="/api/login",
      *     tags={"Users"},
+     *      security= {{ "sanctum": {}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
