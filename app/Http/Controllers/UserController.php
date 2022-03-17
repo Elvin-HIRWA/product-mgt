@@ -90,12 +90,8 @@ class UserController extends Controller
 
         $token = $user->createToken('myapptoken')->plainTextToken;
 
-        $response = [
-            // 'user' => $user,
-            'token' => $token
-        ];
 
-        return response($response, 201);
+        return response()->json($user, 200);
     }
 
 
@@ -191,7 +187,7 @@ class UserController extends Controller
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 
          /**
