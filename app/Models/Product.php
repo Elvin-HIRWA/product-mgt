@@ -16,6 +16,7 @@ class Product extends Model
         'price',
         'quantity'       
     ];
+    protected $hidden = ['updated_at','created_at','id'];
 
 
     protected $table = "products";

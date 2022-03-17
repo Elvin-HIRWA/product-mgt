@@ -71,7 +71,8 @@ public function __construct(Product $product){
      */    
     public function index()
     {
-        return Product::all();    
+        $products = Product::all(); 
+        return response()->json($products, 201);   
     }
 
     /**
@@ -165,11 +166,13 @@ public function __construct(Product $product){
         ]);
 
         $product = Product::Create($request->all());
+
+        return response()->json($product, 201);
         
-        return response()->json([
-            'msg'=>'Product created',
-            'product' => $product 
-        ]);
+        // return response()->json([
+        //     'msg'=>'Product created',
+        //     'product' => $product 
+        // ]);
         
     }
     /**
