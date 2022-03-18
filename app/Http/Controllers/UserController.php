@@ -190,13 +190,21 @@ class UserController extends Controller
  * security={ {"sanctum": {} }},
  * @OA\Response(
  *    response=200,
- *    description="Success"
+ *    description="Success",
+ 
  *     ),
  * @OA\Response(
  *    response=401,
  *    description="Returns when user is not authenticated",
  *    @OA\JsonContent(
  *       @OA\Property(property="message", type="string", example="Not authorized"),
+ *    )
+ * ),
+ * @OA\Response(
+ *    response=500,
+ *    description="Returns when there is server error",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="message", type="string", example="Server Error"),
  *    )
  * )
  * )
