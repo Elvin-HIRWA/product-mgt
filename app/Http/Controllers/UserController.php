@@ -13,7 +13,6 @@ class UserController extends Controller
      * @OA\Post (
      *     path="/api/register",
      *     tags={"Users"},
-     *       security= {{ "sanctum": {}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -101,7 +100,6 @@ class UserController extends Controller
      * @OA\Post (
      *     path="/api/login",
      *     tags={"Users"},
-     *      security= {{ "sanctum": {}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -196,7 +194,7 @@ class UserController extends Controller
  * summary="Logout",
  * description="Logout user and invalidate token",
  * tags={"Users"},
- * security={ {"bearer": {} }},
+ * security={ {"sanctum": {} }},
  * @OA\Response(
  *    response=200,
  *    description="Success"
