@@ -33,13 +33,13 @@ class ProductsTest extends TestCase
             "price" => 30,
             "quantity" => 5,
         ]);
-        $response = $this->actingAs($user)->putJson("/api/product/{$product->id}", [
+        $response = $this->actingAs($user)->postJson("/api/product", [
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
             "price" => 30,
             "quantity" => 5,
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $response->assertExactJson([       
                 "name" => "innoss",
                 "description" => "Kimihurora mu rwanda",
