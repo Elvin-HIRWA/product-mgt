@@ -33,3 +33,12 @@ class LoginTest extends TestCase
      $token = $response->json('token');
     }
 }
+
+// $response->assertJsonStructure([
+//     'token',
+//     'permissionName',
+// ])->json();
+// $token = $response->json('token');
+// $response = $this->withHeaders(['Authorization' => "Bearer $token"])->
+// getJson("/api/permission-list");
+// $response->assertStatus(200);
