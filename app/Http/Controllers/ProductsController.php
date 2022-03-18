@@ -117,7 +117,7 @@ public function __construct(Product $product){
      *         )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="success",
      *          @OA\JsonContent(
      *              @OA\Property(property="name", type="string", example="Bebe"),
