@@ -25,7 +25,7 @@ class LoginTest extends TestCase
          'email' => $user->email,
          'password' => "innocent"
      ]);
-     $response->assertStatus(200);
+     $response->assertStatus(201);
      $response->assertJsonStructure([
          'token',
      ])->json();

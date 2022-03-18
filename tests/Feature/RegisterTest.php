@@ -32,7 +32,7 @@ class RegisterTest extends TestCase
         ];   
         
         $response = $this->postJson('/api/register', $UserData);
-        $response->assertStatus(200);  
+        $response->assertStatus(201);  
         $response->assertExactJson([
             "name"=>"innocent",
             "email"=>"innocent@gmail.com"
