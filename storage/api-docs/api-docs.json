@@ -480,7 +480,7 @@
                 },
                 "security": [
                     {
-                        "bearer": []
+                        "sanctum": []
                     }
                 ]
             },
@@ -568,7 +568,7 @@
                 },
                 "security": [
                     {
-                        "bearer": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -658,7 +658,7 @@
                 },
                 "security": [
                     {
-                        "bearer": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -760,12 +760,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/api/login": {
@@ -869,12 +864,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/api/logout": {
@@ -908,15 +898,23 @@
                 },
                 "security": [
                     {
-                        "bearer": []
+                        "sanctum": []
                     }
                 ]
             }
         }
     },
     "components": {
-        "securitySchemes": [
-            []
-        ]
-    }
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
 }
