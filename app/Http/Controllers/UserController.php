@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
-    
+
    /**
     * Users Registration
     * @OA\Post (
@@ -73,6 +73,7 @@ class UserController extends Controller
 * ),   
     * )
     */ 
+
     public function register(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',
@@ -186,7 +187,7 @@ class UserController extends Controller
  * summary="Logout",
  * description="Logout user and invalidate token",
  * tags={"Users"},
- * security={ {"bearer": {} }},
+ * security={ {"sanctum": {} }},
  * @OA\Response(
  *    response=200,
  *    description="Success"

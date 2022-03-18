@@ -255,7 +255,7 @@ public function __construct(Product $product){
      * * @OA\Put (
      *     path="/api/product/{id}",
      *     tags={"Products"},
-     *     security={ {"bearer": {} }},
+     *     security={ {"sanctum": {} }},
      *     @OA\Parameter(
      *         in="path",
      *         name="id",
@@ -356,7 +356,7 @@ public function __construct(Product $product){
      *  * @OA\Delete (
      *     path="/api/product/{id}",
      *     tags={"Products"},
-     *     security={ {"bearer": {} }},
+     *     security={ {"sanctum": {} }},
      *     @OA\Parameter(
      *         in="path",
      *         name="id",
@@ -411,7 +411,7 @@ public function __construct(Product $product){
     * @OA\Get (
      *     path="/api/product/search/{name}",
      *     tags={"Products"},
-     *     security={ {"bearer": {} }},
+     *     security={ {"sanctum": {} }},
      *     @OA\Parameter(
      *         in="path",
      *         name="name",
