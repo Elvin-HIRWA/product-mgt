@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
     
@@ -56,7 +55,8 @@ class UserController extends Controller
      *          response=201,
      *          description="success",
      *          @OA\JsonContent(
-     *              @OA\Property(property="Token", type="string", example="2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"),
+     *              @OA\Property(property="name", type="string", example="innocent"),
+     *              @OA\Property(property="email", type="string", example="innocent@gmail.com"),
      *          )
      *      ),
      *      @OA\Response(
@@ -91,7 +91,7 @@ class UserController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
 
-        return response()->json($user, 200);
+        return response()->json($user, 201);
     }
 
 
@@ -187,7 +187,7 @@ class UserController extends Controller
             'token' => $token
         ];
 
-        return response($response, 200);
+        return response($response, 201);
     }
 
          /**

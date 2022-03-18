@@ -186,7 +186,12 @@ return [
                             "scopes" => []
                         ],
                     ],
-                ], 41b917a0a9cb923560de27e74669c20b1cd74b1a
+
+                ],
+                */
+
+                
+
                 'sanctum' => [ // Unique name of security
                     'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Enter token in format (Bearer <token>)',
@@ -288,4 +293,3 @@ return [
     ],
 
 ];
-
