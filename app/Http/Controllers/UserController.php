@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
     
@@ -92,7 +91,7 @@ class UserController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
 
-        return response()->json($user, 200);
+        return response()->json($user, 201);
     }
 
 
