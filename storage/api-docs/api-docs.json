@@ -756,16 +756,12 @@
                             }
                         }
                     }
-<<<<<<< HEAD
-                }
-=======
                 },
                 "security": [
                     {
                         "sanctum": []
                     }
                 ]
->>>>>>> 41b917a0a9cb923560de27e74669c20b1cd74b1a
             }
         },
         "/api/login": {
@@ -915,16 +911,8 @@
         }
     },
     "components": {
-        "securitySchemes": {
-            "sanctum": {
-                "type": "apiKey",
-                "description": "Enter token in format (Bearer <token>)",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    },
-    "security": [
-        []
-    ]
+        "securitySchemes": [
+            []
+        ]
+    }
 }
