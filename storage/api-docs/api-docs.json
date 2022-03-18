@@ -714,9 +714,13 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "Token": {
+                                        "name": {
                                             "type": "string",
-                                            "example": "2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"
+                                            "example": "innocent"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "innocent@gmail.com"
                                         }
                                     },
                                     "type": "object"
@@ -756,16 +760,12 @@
                             }
                         }
                     }
-<<<<<<< HEAD
-                }
-=======
                 },
                 "security": [
                     {
                         "sanctum": []
                     }
                 ]
->>>>>>> 41b917a0a9cb923560de27e74669c20b1cd74b1a
             }
         },
         "/api/login": {

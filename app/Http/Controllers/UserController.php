@@ -56,7 +56,8 @@ class UserController extends Controller
      *          response=201,
      *          description="success",
      *          @OA\JsonContent(
-     *              @OA\Property(property="Token", type="string", example="2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"),
+     *              @OA\Property(property="name", type="string", example="innocent"),
+     *              @OA\Property(property="email", type="string", example="innocent@gmail.com"),
      *          )
      *      ),
      *      @OA\Response(
