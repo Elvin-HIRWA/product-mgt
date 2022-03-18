@@ -8,73 +8,71 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     
-    /**
-     * Users Registration
-     * @OA\Post (
-     *     path="/api/register",
-     *     tags={"Users"},
-     *       security= {{ "sanctum": {}}},
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                      type="array",
-     *                       @OA\Items(
-     *                      @OA\Property(
-     *                          property="name",
-     *                          type="string"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="email",
-     *                          type="string"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="password",
-     *                          type="string"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="password_confirmation",
-     *                          type="string"
-     *                      )
-     *                     
-     *                     
-     *                     ),
-     *                 ),
-     *                 example={
-     *                     "name":"Bebe",
-     *                     "email":"example@content.com",
-     *                     "password":"ishyamba123",
-     *                     "password_confirmation":"ishyamba123",
-     *                     
-     *                }
-     *             )
-     *         )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="success",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="name", type="string", example="innocent"),
-     *              @OA\Property(property="email", type="string", example="innocent@gmail.com"),
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=422,
-     *          description="Email has been Taken",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="msg", type="string", example="fail"),
-     *          )
-     *      ),
- *  @OA\Response(
- *    response=500,
- *    description="Returns when there is server problem",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Server Error"),
- *    )  
- * ),   
-     * )
-     */ 
+   /**
+    * Users Registration
+    * @OA\Post (
+    *     path="/api/register",
+    *     tags={"Users"},
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                      type="array",
+    *                       @OA\Items(
+    *                      @OA\Property(
+    *                          property="name",
+    *                          type="string"
+    *                      ),
+    *                      @OA\Property(
+    *                          property="email",
+    *                          type="string"
+    *                      ),
+    *                      @OA\Property(
+    *                          property="password",
+    *                          type="string"
+    *                      ),
+    *                      @OA\Property(
+    *                          property="password_confirmation",
+    *                          type="string"
+    *                      )
+    *                     
+    *                     
+    *                     ),
+    *                 ),
+    *                 example={
+    *                     "name":"Bebe",
+    *                     "email":"example@content.com",
+    *                     "password":"ishyamba123",
+    *                     "password_confirmation":"ishyamba123",
+    *                     
+    *                }
+    *             )
+    *         )
+    *      ),
+    *      @OA\Response(
+    *          response=201,
+    *          description="success",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="Token", type="string", example="2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"),
+    *          )
+    *      ),
+    *      @OA\Response(
+    *          response=422,
+    *          description="Email has been Taken",
+    *          @OA\JsonContent(
+    *              @OA\Property(property="msg", type="string", example="fail"),
+    *          )
+    *      ),
+*  @OA\Response(
+*    response=500,
+*    description="Returns when there is server problem",
+*    @OA\JsonContent(
+*       @OA\Property(property="message", type="string", example="Server Error"),
+*    )  
+* ),   
+    * )
+    */ 
     public function register(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',
@@ -101,7 +99,6 @@ class UserController extends Controller
      * @OA\Post (
      *     path="/api/login",
      *     tags={"Users"},
-     *      security= {{ "sanctum": {}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -152,14 +149,7 @@ class UserController extends Controller
  *    @OA\JsonContent(
  *       @OA\Property(property="message", type="string", example="Server Error"),
  *    )  
- * ),
- *  @OA\Response(
-     *          response=419,
-     *          description="CSRF Token mismatch",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="msg", type="string", example="fail"),
-     *          )
-     *      ),   
+ * ),   
      * )
      */
 

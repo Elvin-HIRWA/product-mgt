@@ -714,13 +714,9 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "Token": {
                                             "type": "string",
-                                            "example": "innocent"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "innocent@gmail.com"
+                                            "example": "2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"
                                         }
                                     },
                                     "type": "object"
@@ -760,12 +756,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/api/login": {
@@ -852,29 +843,8 @@
                                 }
                             }
                         }
-                    },
-                    "419": {
-                        "description": "CSRF Token mismatch",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string",
-                                            "example": "fail"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         },
         "/api/logout": {
@@ -915,8 +885,16 @@
         }
     },
     "components": {
-        "securitySchemes": [
-            []
-        ]
-    }
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
 }

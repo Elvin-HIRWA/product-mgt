@@ -167,7 +167,7 @@ public function __construct(Product $product){
 
         $product = Product::Create($request->all());
 
-        return response()->json($product, 201);
+        return response()->json($product, 200);
         
         // return response()->json([
         //     'msg'=>'Product created',
