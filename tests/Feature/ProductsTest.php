@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
+use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertJson;
 
 class ProductsTest extends TestCase
@@ -27,12 +28,8 @@ class ProductsTest extends TestCase
             "password" => "elvin30",
             "password_confirmation" => "elvin30"
         ]);
-        $product = Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
-        ]);
+        
+        
         $response = $this->actingAs($user)->postJson("/api/product", [
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
@@ -46,6 +43,7 @@ class ProductsTest extends TestCase
                 "price" => 30,
                 "quantity" => 5,
             ]);
+        $this->assertCount(1,Product::all());
     }
 
 
@@ -65,12 +63,12 @@ class ProductsTest extends TestCase
             "quantity" => "5",
         ]);
 
-        Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => "30",
-            "quantity" => "5",
-        ]);
+        // Product::create([
+        //     "name" => "innoss",
+        //     "description" => "Kimihurora mu rwanda",
+        //     "price" => "30",
+        //     "quantity" => "5",
+        // ]);
 
         $response = $this->actingAs($user)->getJson('/api/product');
         $response->assertStatus(201);
@@ -81,12 +79,12 @@ class ProductsTest extends TestCase
                 "price" => 30,
                 "quantity" => 5,
             ],
-            [
-                "name" => "innoss",
-                "description" => "Kimihurora mu rwanda",
-                "price" => 30,
-                "quantity" => 5,
-            ]
+            // [
+            //     "name" => "innoss",
+            //     "description" => "Kimihurora mu rwanda",
+            //     "price" => 30,
+            //     "quantity" => 5,
+            // ]
         ]);
     }
 

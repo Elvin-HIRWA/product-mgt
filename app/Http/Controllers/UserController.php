@@ -182,7 +182,7 @@ class UserController extends Controller
 
         $response = [
             // 'user' => $user,
-            'token' => $token
+            'token' => 'string'
         ];
 
         return response($response, 201);
