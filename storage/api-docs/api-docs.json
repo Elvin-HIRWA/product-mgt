@@ -714,13 +714,9 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
+                                        "Token": {
                                             "type": "string",
-                                            "example": "innocent"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "innocent@gmail.com"
+                                            "example": "2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"
                                         }
                                     },
                                     "type": "object"
@@ -847,22 +843,6 @@
                                 }
                             }
                         }
-                    },
-                    "419": {
-                        "description": "CSRF Token mismatch",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string",
-                                            "example": "fail"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -877,7 +857,20 @@
                 "operationId": "67d5147477c548bfbc3f982833bbc7bd",
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Returns when user is not authenticated",
@@ -888,6 +881,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Returns when there is server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
                                         }
                                     },
                                     "type": "object"

@@ -72,7 +72,7 @@ public function __construct(Product $product){
     public function index()
     {
         $products = Product::all(); 
-        return response()->json($products, 201);   
+        return response()->json($products, 200);   
     }
 
     /**
