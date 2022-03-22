@@ -31,6 +31,7 @@ class LoginTest extends TestCase
      ])->json();
      
      $token = $response->json('token');
+    // $token = 'ndskndf';
     }
 }
 

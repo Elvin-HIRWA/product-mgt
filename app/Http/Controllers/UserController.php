@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserRegistration;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
 
@@ -54,7 +57,8 @@ class UserController extends Controller
     *          response=201,
     *          description="success",
     *          @OA\JsonContent(
-    *              @OA\Property(property="Token", type="string", example="2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"),
+     *                    @OA\Property(property="name", type="string", example="Bebe"),
+     *              @OA\Property(property="email", type="string", example="bebe@gmail.com"),
     *          )
     *      ),
     *      @OA\Response(
@@ -78,7 +82,7 @@ class UserController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|confirmed'
         ]);
 
         $user = User::create([
@@ -87,10 +91,11 @@ class UserController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
-
-
+        
+        $getemail = $user->email;
+        Mail::to($getemail)->send(new UserRegistration());
         return response()->json($user, 201);
+        
     }
 
 
