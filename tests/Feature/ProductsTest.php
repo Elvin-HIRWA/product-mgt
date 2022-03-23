@@ -154,8 +154,8 @@ class ProductsTest extends TestCase
         $product = Product::create([
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" => "30",
-            "quantity" => "5",
+            "price" => 30,
+            "quantity" => 5,
         ]);
         $response = $this->actingAs($user)->deleteJson("/api/product/{$product->id}");
         $response->assertStatus(200);
@@ -177,8 +177,8 @@ class ProductsTest extends TestCase
         $product = Product::create([
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" => "30",
-            "quantity" => "5"
+            "price" => 30,
+            "quantity" => 5
         ]);
         $response = $this->actingAs($user)->getJson("/api/product/search/{$product->name}");
         $response->assertStatus(200);
