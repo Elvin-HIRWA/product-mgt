@@ -33,15 +33,15 @@ class ProductsTest extends TestCase
         $response = $this->actingAs($user)->postJson("/api/product", [
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
+            "price" => "30",
+            "quantity" => "5",
         ]);
         $response->assertStatus(201);
         $response->assertExactJson([       
                 "name" => "innoss",
                 "description" => "Kimihurora mu rwanda",
-                "price" => 30,
-                "quantity" => 5,
+                "price" => "30",
+                "quantity" => "5",
             ]);
         $this->assertCount(1,Product::all());
     }
@@ -57,8 +57,8 @@ class ProductsTest extends TestCase
         $product = Product::create([
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" => "30",
-            "quantity" => "5",
+            "price" => 30,
+            "quantity" => 5,
         ]);
         $response = $this->actingAs($user)->getJson("/api/product/{$product->id}");
         $response->assertStatus(200);
@@ -83,8 +83,8 @@ class ProductsTest extends TestCase
         Product::create([
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" => "30",
-            "quantity" => "5",
+            "price" => 30,
+            "quantity" => 5,
         ]);
 
         // Product::create([
