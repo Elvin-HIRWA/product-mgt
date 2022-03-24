@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertJson;
@@ -18,34 +19,40 @@ use function PHPUnit\Framework\assertJson;
 class ProductsTest extends TestCase
 {
     use DatabaseMigrations;
-    
-    /**
-     * @test
-     */
-    public function can_create_a_product()
+
+    /** @test */
+    public function user_can_create_the_product()
     {
-        $user = User::create([
-            "name" => "innoss",
-            "email" => "Kimihurora@murwanda.com",
-            "password" => "elvin30",
-            "password_confirmation" => "elvin30"
-        ]);
-        
-        
-        $response = $this->actingAs($user)->postJson("/api/product", [
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
-        ]);
-        $response->assertStatus(201);
-        $response->assertExactJson([       
-                "name" => "innoss",
-                "description" => "Kimihurora mu rwanda",
-                "price" => 30,
-                "quantity" => 5,
-            ]);
-        $this->assertCount(1,Product::all());
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
+        ]); 
+
+     $response = $this->postJson('/api/login', [
+         'email' => $user->email,
+         'password' => "innocent"
+     ]);
+     $response->assertStatus(201);
+    
+     $response->assertJsonStructure([
+        'token'
+    ])->json();
+    $token = $response->json('token');
+    $response = $this->withHeaders(['Authorization' => "Bearer $token"])->
+    postJson("/api/product", [
+        "name" => "Ndoli",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+    $response->assertStatus(201);
+    $response->assertExactJson([
+        "name" => "Ndoli",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
     }
 
     //this test is for reading single data
@@ -179,20 +186,25 @@ class ProductsTest extends TestCase
             "password_confirmation" => "landlord"
         ]);
         $product = Product::create([
-        
+
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
             "price" => 30,
             "quantity" => 5
+            
         ]);
         $response = $this->actingAs($user)->getJson("/api/product/search/{$product->name}");
         $response->assertStatus(200);
         // $response->dd();
         $response->assertExactJson([
-          [  "name" => "innoss",
+            [
+            "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
-            "price" =>30,
-            "quantity" =>5]
+            "price" => 30,
+            "quantity" => 5
+            ]
+
+
         ]);
     }
     

@@ -453,6 +453,8 @@ public function __construct(Product $product){
    {
     $product =  Product::where('name', 'like', '%' . $name . '%')->get();
 
+
        return response()->json($product);
+
    }
 }
