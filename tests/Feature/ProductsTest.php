@@ -48,30 +48,30 @@ class ProductsTest extends TestCase
 
     //this test is for reading single data
     /** @test */
-    // public function a_user_can_filter_the_product_by_its_id()
-    // {
-    //     $user = User::create([
-    //         "name" => "innoss",
-    //         "email" => "Kimihurora@murwanda.com",
-    //         "password" => "elvin30",
-    //         "password_confirmation" => "elvin30"
-    //     ]);
-    //     $product = Product::create([
-    //         "name" => "innoss",
-    //         "description" => "Kimihurora mu rwanda",
-    //         "price" => 30,
-    //         "quantity" => 5,
-    //     ]);
-    //     $response = $this->actingAs($user)->getJson("/api/product/{$product->id}");
-    //     $response->assertStatus(200);
-    //     $response->assertExactJson(
-    //         [
-    //             "name" => "innoss",
-    //             "description" => "Kimihurora mu rwanda",
-    //             "price" => 30,
-    //             "quantity" => 5,
-    //         ]);
-    // }
+    public function a_user_can_filter_the_product_by_its_id()
+    {
+        $user = User::create([
+            "name" => "innoss",
+            "email" => "Kimihurora@murwanda.com",
+            "password" => "elvin30",
+            "password_confirmation" => "elvin30"
+        ]);
+        $product = Product::create([
+            "name" => "innoss",
+            "description" => "Kimihurora mu rwanda",
+            "price" => 30,
+            "quantity" => 5,
+        ]);
+        $response = $this->actingAs($user)->getJson("/api/product/{$product->id}");
+        $response->assertStatus(200);
+        $response->assertExactJson(
+            [
+                "name" => "innoss",
+                "description" => "Kimihurora mu rwanda",
+                "price" => 30,
+                "quantity" => 5,
+            ]);
+    }
 
     // /** @test */
     // public function a_user_can_read_all_the_product()
