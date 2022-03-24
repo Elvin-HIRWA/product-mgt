@@ -57,6 +57,12 @@ class Product extends Model
         );
     }
 
+    protected function quantity(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => intval($value),
+        );
+    }
     /**
      * @param int $id
      * @return mixed
