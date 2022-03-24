@@ -64,7 +64,6 @@ class ProductsTest extends TestCase
         ]);
         $response = $this->actingAs($user)->getJson("/api/product/{$product->id}");
         $response->assertStatus(200);
-        $response->dd();
         $response->assertExactJson(
             [
                 "name" => "innoss",
