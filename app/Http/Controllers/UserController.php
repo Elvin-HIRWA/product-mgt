@@ -1,7 +1,6 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers;
-
 use App\Mail\UserRegistration;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,6 +9,80 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    
+    /**
+     * Display a listing of all users.
+     * @OA\Get(
+     *   path="/api/users",
+     *   tags={"Users"}, 
+     *   security={ {"sanctum": {} }}, 
+     *    @OA\Response(
+     *    response=401,
+     *    description="UnAuthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="UnAuthanticated"),
+     *    )
+     * ),
+     *  @OA\Response(
+     *    response=500,
+     *    description="Returns when there is server problem",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Server Error"),
+     *    )  
+     * ),   
+     *   @OA\Response(
+     *     response="200",
+     *     description="Success|Returns Products list",
+     *     @OA\JsonContent(
+     *       type="array",
+     *       @OA\Items(
+     *           @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Innocent"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="email",
+     *                         type="string",
+     *                         example="Innocent@gmail.com"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="quantity",
+     *                         type="integer",
+     *                         example="6"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="email_verified",
+     *                         type="string",
+     *                         example="Null"
+     *                      ),
+     * )
+     *     )
+     *   )
+     * )
+     *
+     * @return \Illuminate\Http\Response
+     */ 
+
+
+
+
+    public function index(){
+
+        $user = User::all();
+
+        $response = $user;
+
+
+        return response()->json($response, 200);
+    }
+
+    public function show($id){
+
+        $user = User::find($id);
+        $response = $user;
+        return response()->json($response, 200);
+    }
 
    /**
     * Users Registration

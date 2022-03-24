@@ -1,7 +1,6 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +26,7 @@ class Product extends Model
      * @param int $id
      * @return mixed
      */
-    public function getProduct(int $id){
+    public function getProduct($id){
         $product = $this->where("id",$id)->first();
         return $product;
     }
@@ -36,7 +35,7 @@ class Product extends Model
      * @param array $attributes
      * @return mixed
      */
-    public function updateProduct(int $id, array $attributes){
+    public function updateProduct($id, array $attributes){
         $product = $this->getProduct($id);
         if($product == null){
             throw new ModelNotFoundException("Cant find this product");
@@ -67,7 +66,7 @@ class Product extends Model
      * @param int $id
      * @return mixed
      */
-    public function deleteProduct(int $id){
+    public function deleteProduct($id){
         $product = $this->getProduct($id);
         if($product == null){
             throw new ModelNotFoundException("This Product not found");
