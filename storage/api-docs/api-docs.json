@@ -714,9 +714,13 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "Token": {
+                                        "name": {
                                             "type": "string",
-                                            "example": "2|aAUDFJ8GbMcvrFH2PnDvDZ2GM8cbklBijDqMX9Dw"
+                                            "example": "Bebe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "bebe@gmail.com"
                                         }
                                     },
                                     "type": "object"
