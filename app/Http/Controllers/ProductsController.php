@@ -451,6 +451,9 @@ public function __construct(Product $product){
    public function search($name)
    {
     $product =  Product::where('name', 'like', '%' . $name . '%')->get();
-      return response()->json($product);
+
+
+       return response()->json($product);
+
    }
 }
