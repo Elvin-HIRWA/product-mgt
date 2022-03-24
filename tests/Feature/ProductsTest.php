@@ -177,18 +177,22 @@ class ProductsTest extends TestCase
             "password_confirmation" => "landlord"
         ]);
         $product = Product::create([
+            
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
             "price" => 30,
             "quantity" => 5
+            
         ]);
         $response = $this->actingAs($user)->getJson("/api/product/search/{$product->name}");
         $response->assertStatus(200);
         $response->assertExactJson([
+            [
             "name" => "innoss",
             "description" => "Kimihurora mu rwanda",
             "price" => 30,
             "quantity" => 5
+            ]
         ]);
     }
     
