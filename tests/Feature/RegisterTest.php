@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Mail\UserRegistration;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -24,18 +26,29 @@ class RegisterTest extends TestCase
 
     public function test_User_Register_Successfully() {
 
+        Mail::fake();
+
         $UserData = [
-            "name"=>"innocent",
-            "email"=>"innocent@gmail.com",
-            "password"=>"innocent",
-            "password_confirmation"=>"innocent"
+            "name"=>"elvin",
+            "email"=>"elhirwa3@gmail.com",
+            "password"=>"elvin",
+            "password_confirmation"=>"elvin"
         ];   
         
         $response = $this->postJson('/api/register', $UserData);
+
+        $email = "elhirwa3@gmail.com";
+
+        Mail::assertSent(function (UserRegistration $mail) use ($email) {
+            return $mail->email === $email;
+        });
+
+
         $response->assertStatus(201);  
+
         $response->assertExactJson([
-            "name"=>"innocent",
-            "email"=>"innocent@gmail.com"
+            "name"=>"elvin",
+            "email"=>"elhirwa3@gmail.com"
             
         ]); 
     }

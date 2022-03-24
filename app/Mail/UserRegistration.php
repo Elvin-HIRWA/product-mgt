@@ -11,14 +11,16 @@ class UserRegistration extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $email;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+
+    public function __construct($email)
     {
-        //
+        $this->email = $email;
     }
 
     /**

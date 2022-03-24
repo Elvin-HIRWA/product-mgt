@@ -93,7 +93,7 @@ class UserController extends Controller
 
         
         $getemail = $user->email;
-        Mail::to($getemail)->send(new UserRegistration());
+        Mail::to($getemail)->send(new UserRegistration($getemail));
         return response()->json($user, 201);
         
     }
