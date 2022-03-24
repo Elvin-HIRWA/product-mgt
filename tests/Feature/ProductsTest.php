@@ -45,6 +45,8 @@ class ProductsTest extends TestCase
             ]);
         $this->assertCount(1,Product::all());
     }
+
+    //this test is for reading single data
     /** @test */
     public function a_user_can_filter_the_product_by_its_id()
     {
@@ -175,18 +177,19 @@ class ProductsTest extends TestCase
     //         "password_confirmation" => "landlord"
     //     ]);
     //     $product = Product::create([
+        
     //         "name" => "innoss",
     //         "description" => "Kimihurora mu rwanda",
-    //         "price" => "30",
-    //         "quantity" => "5"
+    //         "price" => 30,
+    //         "quantity" => 5
     //     ]);
     //     $response = $this->actingAs($user)->getJson("/api/product/search/{$product->name}");
     //     $response->assertStatus(200);
     //     $response->assertExactJson([
     //         "name" => "innoss",
     //         "description" => "Kimihurora mu rwanda",
-    //         "price" => "30",
-    //         "quantity" =>"5"
+    //         "price" =>30,
+    //         "quantity" =>5
     //     ]);
     // }
     
