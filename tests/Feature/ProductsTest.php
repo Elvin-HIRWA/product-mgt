@@ -47,7 +47,7 @@ class ProductsTest extends TestCase
         "quantity" => 5,
     ]);
     $response->assertStatus(201);
-    $response->assertExactJson([
+    $response->assertJson([
         "name" => "Ndoli",
         "description" => "Kimihurora mu rwanda",
         "price" => 30,
@@ -59,153 +59,206 @@ class ProductsTest extends TestCase
     /** @test */
     public function a_user_can_filter_the_product_by_its_id()
     {
-        $user = User::create([
-            "name" => "innoss",
-            "email" => "Kimihurora@murwanda.com",
-            "password" => "elvin30",
-            "password_confirmation" => "elvin30"
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
         ]);
-        $product = Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => "innocent"
         ]);
-        $response = $this->actingAs($user)->getJson("/api/product/{$product->id}");
+        $response->assertStatus(201);
+       
+        $response->assertJsonStructure([
+           'token'
+       ])->json();
+
+       $product = Product::create([
+        "id" => 1,
+        "name" => "innoss",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+
+
+       $token = $response->json('token');
+       
+       $response = $this->withHeaders(['Authorization' => "Bearer $token"])->getJson("/api/product/{$product->id}");
+    
         $response->assertStatus(200);
         $response->assertExactJson(
             [
+                "id" => 1,
                 "name" => "innoss",
                 "description" => "Kimihurora mu rwanda",
                 "price" => 30,
                 "quantity" => 5,
             ]);
+        
     }
 
-    // /** @test */
+     /** @test */
     public function a_user_can_read_all_the_product()
     {
-        $user = User::create([
-            "name" => "innoss",
-            "email" => "Kimihurora@murwanda.com",
-            "password" => "elvin30",
-            "password_confirmation" => "elvin30"
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
         ]);
-        Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => "innocent"
         ]);
+        $response->assertStatus(201);
+       
+        $response->assertJsonStructure([
+           'token'
+       ])->json();
 
-        // Product::create([
-        //     "name" => "innoss",
-        //     "description" => "Kimihurora mu rwanda",
-        //     "price" => "30",
-        //     "quantity" => "5",
-        // ]);
+       $product = Product::create([
+        "id" => 1,
+        "name" => "innoss",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
 
-        $response = $this->actingAs($user)->getJson('/api/product');
+
+       $token = $response->json('token');
+       
+       $response = $this->withHeaders(['Authorization' => "Bearer $token"])->getJson("/api/product");
+    
         $response->assertStatus(200);
         $response->assertExactJson([
             [
+                "id" => 1,
                 "name" => "innoss",
                 "description" => "Kimihurora mu rwanda",
                 "price" => 30,
-                "quantity" => 5,
-            ],
-            // [
-            //     "name" => "innoss",
-            //     "description" => "Kimihurora mu rwanda",
-            //     "price" => 30,
-            //     "quantity" => 5,
-            // ]
-        ]);
+                "quantity" => 5,]
+            ]); 
     }
 
     /** @test */
     public function can_update_a_product()
     {
-        $user = User::create([
-            "name" => "innoss",
-            "email" => "Kimihurora@murwanda.com",
-            "password" => "elvin30",
-            "password_confirmation" => "elvin30"
-        ]);
-       $product = Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
-        ]);
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
+        ]); 
 
-        $response = $this->actingAs($user)->putJson("/api/product/{$product->id}", [
-            "name" => "Ndoli",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
-        ]);
-        $response->assertStatus(200);
-        $response->assertExactJson([
-            "name" => "Ndoli",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
-        ]);
+     $response = $this->postJson('/api/login', [
+         'email' => $user->email,
+         'password' => "innocent"
+     ]);
+     $response->assertStatus(201);
+    
+     $response->assertJsonStructure([
+        'token'
+    ])->json();
+    $product = Product::create([
+        "id" => 1,
+        "name" => "innoss",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+
+    $token = $response->json('token');
+    $response = $this->withHeaders(['Authorization' => "Bearer $token"])->
+    putJson("/api/product/{$product->id}", [
+        "name" => "Ndoli",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+    $response->assertStatus(200);
+    $response->assertJson([
+        "name" => "Ndoli",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
     }
     /** @test */
     public function can_delete_a_product()
     {
-        $user = User::create([
-            "name" => "innoss",
-            "email" => "Kimihurora@murwanda.com",
-            "password" => "elvin30",
-            "password_confirmation" => "elvin30"
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
         ]);
-        $product = Product::create([
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5,
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => "innocent"
         ]);
-        $response = $this->actingAs($user)->deleteJson("/api/product/{$product->id}");
+        $response->assertStatus(201);
+       
+        $response->assertJsonStructure([
+           'token'
+       ])->json();
+
+       $product = Product::create([
+        "id" => 1,
+        "name" => "innoss",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+
+
+       $token = $response->json('token');
+       
+       $response = $this->withHeaders(['Authorization' => "Bearer $token"])->deleteJson("/api/product/{$product->id}");
+    
         $response->assertStatus(200);
         $response->assertExactJson(["msg"=> "Product Deleted successfully"]);
-        $response = $this->actingAs($user)->getJson('/api/product');
-        
         
     }
 
     /** @test */
     public function can_search_a_product_with_related_name()
     {
-        $user = User::create([
-            "name" => "Elvin",
-            "email" => "elhirwa3@gmail.com",
-            "password" => "landlord",
-            "password_confirmation" => "landlord"
+        $user = User::Create([
+            "name" =>"innocent",
+            "email" =>"innocent@gmail.com",
+            "password" =>bcrypt("innocent"),
         ]);
-        $product = Product::create([
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => "innocent"
+        ]);
+        $response->assertStatus(201);
+       
+        $response->assertJsonStructure([
+           'token'
+       ])->json();
 
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5
-            
-        ]);
-        $response = $this->actingAs($user)->getJson("/api/product/search/{$product->name}");
+       $product = Product::create([
+        "id" => 1,
+        "name" => "innoss",
+        "description" => "Kimihurora mu rwanda",
+        "price" => 30,
+        "quantity" => 5,
+    ]);
+
+
+       $token = $response->json('token');
+       
+       $response = $this->withHeaders(['Authorization' => "Bearer $token"])->getJson("/api/product/search/{$product->name}");
+    
         $response->assertStatus(200);
-        // $response->dd();
         $response->assertExactJson([
             [
-            "name" => "innoss",
-            "description" => "Kimihurora mu rwanda",
-            "price" => 30,
-            "quantity" => 5
-            ]
-
-
-        ]);
+                "id" => 1,
+                "name" => "innoss",
+                "description" => "Kimihurora mu rwanda",
+                "price" => 30,
+                "quantity" => 5,]
+            ]);
     }
     
 }

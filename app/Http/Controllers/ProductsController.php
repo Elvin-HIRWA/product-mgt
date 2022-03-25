@@ -72,8 +72,9 @@ public function __construct(Product $product){
      */    
     public function index()
     {
-        $products = Product::all(); 
-        return response()->json($products, 200);   
+        $products = Product::all();//(["description","name","price","quantity","id"]); 
+        // return response()->json($products, 200); 
+        return $products;  
     }
 
     /**
@@ -236,7 +237,7 @@ public function __construct(Product $product){
             return response()->json($product);
         }
         return response()->json(["msg"=>"this Product not found"],404);
-
+            
     }
 
     /**
