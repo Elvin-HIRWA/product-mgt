@@ -1,16 +1,14 @@
 version: 2.1
-
-workflows:
-  test-deploy:
-    jobs:
-      -test
-
-
+orbs:
+  browser-tools: circleci/browser-tools@1.1
 jobs:
-  test:
+  build:
     docker:
-      -image: cimg/php:7.4.14-browsers 
+      # Specify the version you desire here
+      - image: cimg/php:7.4.14-browsers
 
-    steps:    
+    steps:
+      - browser-tools/install-browser-tools    
       - checkout
+
       - run: php --version
