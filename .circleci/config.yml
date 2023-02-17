@@ -13,22 +13,24 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
     steps:
       - checkout
+      - run: curl -fsSL https://get.docker.com -o get-docker.sh
+      - run: sudo sh get-docker.sh
       - run: sudo service docker start
       - run:
-          name: Start Docker containers
+          name: Install Dependencies
           command: |
             curl -s https://raw.githubusercontent.com/laravel/sail/v1.1.0/bin/sail \
               --output sail
             chmod +x sail
             ./sail up -d
       - run:
-          name: Install Dependencies
-          command: |
-            ./sail composer install
-      - run:
           name: Run Tests
           command: |
             ./sail artisan test
+      - run:
+          name: Stop Docker containers
+          command: |
+            ./sail down
 
 workflows:
   build:
