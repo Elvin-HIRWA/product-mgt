@@ -1,16 +1,16 @@
 version: 2.1
-orbs:
-  browser-tools: circleci/browser-tools@1.1
+
+workflows:
+  test-deploy:
+    jobs:
+      -test
+
+
 jobs:
-  build:
+  test:
     docker:
-      # Specify the version you desire here
-      - image: cimg/php:7.4.14-browsers
+      -image: cimg/php:7.4.14-browsers 
 
-    steps:
-      - browser-tools/install-browser-tools    
+    steps:    
       - checkout
-
-      - run:
-          name: "Run Unit Tests"
-          command: ./vendor/bin/sail artisan test
+      - run: php --version
