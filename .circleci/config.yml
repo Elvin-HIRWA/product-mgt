@@ -26,5 +26,5 @@ workflows:
   hello_and_goodbye:
     # List of jobs that will run
     jobs:
-      - say_hello
-      - say_goodbye
+      - insall_dependecy
+      - run_tests
