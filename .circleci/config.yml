@@ -28,10 +28,6 @@ jobs:
           name: Run Tests
           command: |
             ./sail artisan test
-      - run:
-          name: Stop Docker containers
-          command: |
-            ./sail down
 
 workflows:
   build:
