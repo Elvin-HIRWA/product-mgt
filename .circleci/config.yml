@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run: curl -fsSL https://get.docker.com -o get-docker.sh
       - run: sudo sh get-docker.sh
-      - run: sudo service docker start
+      # - run: sudo service docker start
       - run:
           name: Install Dependencies
           command: |
