@@ -3,18 +3,23 @@ version: 2.1
 
 jobs:
   # Job one with a unique name
-  say_hello:
+  insall_dependecy:
     docker:
      - image: cimg/base:2022.05
     steps:
-      - run: ./vendor/bin/sail artisan test
+      - run: docker run --rm \
+-u "$(id -u):$(id -g)" \
+-v $(pwd):/var/www/html \
+-w /var/www/html \
+laravelsail/php81-composer:latest \
+composer install --ignore-platform-reqs
   # Job two with a unique name
-  say_goodbye:
+  run_tests:
     docker:
      - image: cimg/base:2022.05
         
     steps:
-      - run: echo "Say goodbye to YAML!"
+      - run: ./vendor/bin/sail artisan test
 
 workflows:
   # Name of workflow
