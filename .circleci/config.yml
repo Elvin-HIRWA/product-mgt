@@ -7,7 +7,7 @@ jobs:
     docker:
      - image: cimg/base:2022.05
     steps:
-      - run: sail artisan test
+      - run: ./vendor/bin/sail artisan test
   # Job two with a unique name
   say_goodbye:
     docker:
