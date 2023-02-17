@@ -1,30 +1,39 @@
-# CircleCI configuration file
 version: 2.1
 
 jobs:
-  # Job one with a unique name
-  insall_dependecy:
+  build:
+    working_directory: ~/app
     docker:
-     - image: cimg/base:2022.05
+      - image: circleci/php:7.4-fpm-buster
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: test
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
     steps:
-      - run: docker run --rm \
-            -u "$(id -u):$(id -g)" \
-            -v $(pwd):/var/www/html \
-            -w /var/www/html \
-            laravelsail/php81-composer:latest \
-            composer install --ignore-platform-reqs
-  # Job two with a unique name
-  run_tests:
-    docker:
-     - image: cimg/base:2022.05
-        
-    steps:
-      - run: ./vendor/bin/sail artisan test
+      - checkout
+      - run:
+          name: Start Docker containers
+          command: |
+            curl -s https://raw.githubusercontent.com/laravel/sail/v1.1.0/bin/sail \
+              --output sail
+            chmod +x sail
+            ./sail up -d
+      - run:
+          name: Install Dependencies
+          command: |
+            ./sail composer install
+      - run:
+          name: Run Tests
+          command: |
+            ./sail artisan test
+      - run:
+          name: Stop Docker containers
+          command: |
+            ./sail down
 
 workflows:
-  # Name of workflow
-  hello_and_goodbye:
-    # List of jobs that will run
+  build:
     jobs:
-      - insall_dependecy
-      - run_tests
+      - build
