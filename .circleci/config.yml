@@ -1,18 +1,19 @@
 version: 2.1
-
 jobs:
   build:
-    working_directory: ~/repo
     docker:
       - image: circleci/php:7.4-fpm-buster
+    working_directory: ~/repo
     steps:
       - checkout
+      - run: composer install
       - run:
           name: Start Sail containers
-          command: |
-            ./vendor/bin/sail up -d
-
-workflows:
-  build:
-    jobs:
-      - build
+          command: ./vendor/bin/sail up -d
+      - run:
+          name: Run Tests
+          command: ./vendor/bin/sail test
+      - store_test_results:
+          path: tests/TestResults.xml
+      - store_artifacts:
+          path: tests/coverage
