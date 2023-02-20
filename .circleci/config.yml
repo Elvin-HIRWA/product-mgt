@@ -3,12 +3,16 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-browsers
-        entrypoint: ""
-        command: ""
+        environment:
+          MYSQL_DATABASE: product
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: ""
+        command: /bin/sh -c "sudo service mysql start && sleep 10 && php vendor/bin/phpunit"
 
     steps:
       - checkout
-      - run: cp .env.testing .env
+      - run: cp .env.example .env
       - run:
           name: Install PHP dependencies
           command: |
