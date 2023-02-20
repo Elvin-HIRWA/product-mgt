@@ -1,20 +1,36 @@
 version: 2.1
-
 jobs:
-  test:
+  build:
     docker:
-      - image: circleci/php:8.0-browsers
-    working_directory: ~/project
+      - image: circleci/php:8.0
+        environment:
+          MYSQL_DATABASE: product
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: ''
+        command: /bin/sh -c "sudo service mysql start && sleep 10 && php vendor/bin/phpunit"
+      - image: circleci/mysql:8.0
+        environment:
+          MYSQL_DATABASE: product
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: ''
     steps:
       - checkout
-      - run: cp .env.example .env
-      - run: composer install --no-interaction
-      - run: php artisan key:generate
-      # - run: ./vendor/bin/sail up -d
-      - run: php artisan migrate --force
-      - run: php artisan test
+      - run: cp .env.testing .env
+      - run:
+          name: Install PHP dependencies
+          command: |
+            composer install --no-interaction
+      - run:
+          name: Generate application key
+          command: php artisan key:generate
+      - run:
+          name: Migrate database
+          command: php artisan migrate --force
 
 workflows:
+  version: 2
   build-and-test:
     jobs:
-      - test
+      - build
