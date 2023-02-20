@@ -3,10 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-fpm-buster
-      - run: sudo service docker restart
+
     working_directory: ~/repo
     steps:
       - checkout
+      - run: sudo service docker start
       - run: docker version
       - run: composer install
       - run:
