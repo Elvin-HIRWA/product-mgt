@@ -9,7 +9,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: ''
         command: /bin/sh -c "sudo service mysql start && sleep 10 && php vendor/bin/phpunit"
-      - image: circleci/mysql:8.0
+      - image: circleci/mysql:8.0-browsers
         environment:
           MYSQL_DATABASE: product
           MYSQL_USER: admin
