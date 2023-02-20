@@ -3,12 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-browsers
-        environment:
-          MYSQL_DATABASE: product
-          MYSQL_USER: admin
-          MYSQL_PASSWORD: password
-          MYSQL_ROOT_PASSWORD: ""
-        command: /bin/sh -c "sudo service mysql start && sleep 10 && php vendor/bin/phpunit"
+        entrypoint: ""
+        command: ""
 
     steps:
       - checkout
