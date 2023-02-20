@@ -4,8 +4,8 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/php:7.1-browsers
-      - image: circleci/mysql:5.7
+      - image: circleci/php:8.0-browsers
+      - image: circleci/mysql
         environment:
           MYSQL_USER: admin
           MYSQL_ROOT_PASSWORD: password
