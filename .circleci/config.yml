@@ -8,7 +8,7 @@ jobs:
           MYSQL_USER: admin
           MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: ""
-        command: /bin/sh -c "sudo service mysql start && sleep 10 && php vendor/bin/phpunit"
+        command: /bin/sh -c "sudo service mysql start && php vendor/bin/phpunit"
 
     steps:
       - checkout
