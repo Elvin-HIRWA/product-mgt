@@ -8,9 +8,9 @@ jobs:
       - image: circleci/mysql
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: No
-          MYSQL_USER: admin
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: product
+          MYSQL_USER: '${DB_USERNAME}'
+          MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+          MYSQL_DATABASE: '${DB_DATABASE}'
 
     working_directory: ~/laravel
 
