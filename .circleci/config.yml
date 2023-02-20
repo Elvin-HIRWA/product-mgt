@@ -20,7 +20,6 @@ jobs:
           command: |
             sudo docker-php-ext-install zip
             sudo docker-php-ext-install pdo_mysql
-            sudo apt-get update && sudo apt-get install -y mysql-client
       - run: sudo composer self-update
 
       # Download and cache dependencies
