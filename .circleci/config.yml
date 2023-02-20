@@ -7,8 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check Docker status
-          command: docker info
+          name: Check Docker version
+          command: docker version
+
       - run: composer install
       - run:
           name: Start Sail containers
