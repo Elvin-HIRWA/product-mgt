@@ -7,7 +7,7 @@ jobs:
       - image: circleci/php:8.0-browsers
       - image: circleci/mysql
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ALLOW_EMPTY_PASSWORD: No
           MYSQL_USER: admin
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: product
