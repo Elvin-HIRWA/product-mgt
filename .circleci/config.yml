@@ -1,20 +1,49 @@
 version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0-fpm-buster
+      # Specify the version you desire here
+      - image: cimg/php:7.4.14-browsers
 
-    working_directory: ~/repo
     steps:
+      - browser-tools/install-browser-tools    
       - checkout
-      - run: composer install
+
       - run:
-          name: Start Sail containers
-          command: ./vendor/bin/sail up -d
+          name: "Prepare Environment"
+          command: |
+            sudo apt update
+            sudo docker-php-ext-install zip
+
       - run:
-          name: Run Tests
-          command: ./vendor/bin/sail test
-      - store_test_results:
-          path: tests/TestResults.xml
-      - store_artifacts:
-          path: tests/coverage
+          name: "Create Environment file"
+          command: |
+            mv .env.testing .env
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: "Install Dependencies"
+          command: composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+
+      - run:
+          name: "Generate App key"
+          command: php artisan key:generate
+
+      # run tests with phpunit
+      - run:
+          name: "Run Unit Tests"
+          command: ./vendor/bin/phpunit tests/Unit
