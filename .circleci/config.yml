@@ -3,7 +3,7 @@ jobs:
   build:
     test:
       docker:
-      # Specify the version you desire here
+        # Specify the version you desire here
         - image: cimg/php:7.4.14-browsers
       steps:
         - checkout
