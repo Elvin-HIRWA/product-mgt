@@ -1,16 +1,16 @@
-version: 2
+version: 2.1
 
 jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/php:8.0-browsers
-      - image: circleci/mysql
+      - image: - image: cimg/php:8.0-browsers
+      - image: cimg/mysql:8.0
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: no
+          MYSQL_HOST: 127.0.0.1
           MYSQL_USER: admin
           MYSQL_PASSWORD: password
-          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: product
 
     working_directory: ~/laravel
