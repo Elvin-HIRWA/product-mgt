@@ -6,8 +6,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: sudo rm -rf /var/lib/docker
-      - run: sudo apt-get purge docker-ce docker-ce-cli containerd.io
+      - run: sudo apt-get update
       - run: composer install
       - run:
           name: Start Sail containers
