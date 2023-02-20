@@ -3,6 +3,11 @@ jobs:
     docker:
       - image: cimg/php:8.2.2
       - image: cimg/mysql:8.0
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: no
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: product
     steps:
       - checkout
       - run: php --version
