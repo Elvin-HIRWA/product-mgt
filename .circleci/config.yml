@@ -10,9 +10,9 @@ jobs:
       - run: cp .env.example .env
       - run: composer install --no-interaction
       - run: php artisan key:generate
-      - run: ./vendor/bin/sail up -d
-      - run: ./vendor/bin/sail artisan migrate --force
-      - run: ./vendor/bin/sail test
+      # - run: ./vendor/bin/sail up -d
+      - run: php artisan migrate --force
+      - run: php artisan test
 
 workflows:
   build-and-test:
