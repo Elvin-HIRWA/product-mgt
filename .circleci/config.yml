@@ -6,15 +6,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Remove docker socket
-          command: sudo rm /var/run/docker.sock
-      -run:
-          name: Restart docker service
-          command: sudo service docker restart
-
-
-
+      - run: sudo rm /var/run/docker.sock
+      - run: sudo service docker restart
       - run: composer install
       - run:
           name: Start Sail containers
