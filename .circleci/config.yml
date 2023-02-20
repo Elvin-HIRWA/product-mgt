@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
       - run: ./vendor/bin/phpunit
 
 workflows:
-  
+  version: 2
   notify_deploy:
     jobs:
       - build
