@@ -2,6 +2,7 @@ jobs:
   build:
     docker:
       - image: cimg/php:8.2.2
+      - image: cimg/mysql:8.0
     steps:
       - checkout
       - run: php --version
