@@ -1,10 +1,20 @@
 version: 2.1
+
 jobs:
-  build:
-    test:
-      docker:
-        # Specify the version you desire here
-        - image: cimg/php:7.4.14-browsers
-      steps:
-        - checkout
-        - run: php --version
+  test:
+    docker:
+      - image: circleci/php:8.0-browsers
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run: cp .env.example .env
+      - run: composer install --no-interaction
+      - run: php artisan key:generate
+      - run: ./vendor/bin/sail up -d
+      - run: ./vendor/bin/sail artisan migrate --force
+      - run: ./vendor/bin/sail test
+
+workflows:
+  build-and-test:
+    jobs:
+      - test
