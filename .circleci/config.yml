@@ -6,7 +6,7 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_ROOT_PASSWORD: ""
           MYSQL_DATABASE: laravel
     working_directory: ~/laravel
     steps:
@@ -16,7 +16,8 @@ jobs:
           command: |
             sudo docker-php-ext-install zip
             sudo docker-php-ext-install pdo_mysql
-            sudo apt-get install -y mysql-client
+            sudo apt-get update
+            sudo apt-get install -y mysql-client-core-5.7
       - run: sudo composer self-update
       # Download and cache dependencies
       - restore_cache:
