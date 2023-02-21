@@ -34,7 +34,7 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
       - run: cp .env.example .env
       - run: php artisan key:generate
-      - run: ./vendor/bin/phpunit
+      - run: php artisan test
 
 workflows:
   version: 2
