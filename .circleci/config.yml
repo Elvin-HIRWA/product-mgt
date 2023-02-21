@@ -46,4 +46,9 @@ jobs:
           message: "Build failed!"
           webhook: $SLACK_WEBHOOK_URL
 
-
+workflows:
+  version: 2.1
+  notify_deploy:
+    jobs:
+      - build
+      - notify
