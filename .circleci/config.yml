@@ -33,6 +33,7 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
       - run: cp .env.example .env
+      - run: ./vendor/bin/sail up -d
       - run: ./vendor/bin/sail artisan key:generate
       - run: ./vendor/bin/sail artisan test
 
