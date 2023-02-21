@@ -32,6 +32,7 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
+      - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
       - run:
