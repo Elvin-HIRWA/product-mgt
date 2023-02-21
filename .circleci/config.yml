@@ -32,12 +32,11 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
-
+      - run: ./vendor/bin/phpunit
       - run:
           name: Setup Laravel stuffs
           command: |
             php artisan migrate --force
-      - run: ./vendor/bin/phpunit
 
 workflows:
   version: 2
