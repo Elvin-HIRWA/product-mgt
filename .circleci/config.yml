@@ -35,9 +35,21 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
+  notify:
+    requires:
+      - build
+    filters:
+      branches:
+        only:
+          - master
+    steps:
+      - slack-notify:
+          message: "Build failed!"
+          webhook: $SLACK_WEBHOOK_URL
 
 workflows:
   version: 2
   notify_deploy:
     jobs:
       - build
+      - notify
