@@ -41,11 +41,3 @@ workflows:
   notify_deploy:
     jobs:
       - build
-      - notify:
-          requires:
-            - build
-
-          steps:
-            - slack-notify:
-                message: "Build failed!"
-                webhook: $SLACK_WEBHOOK_URL
