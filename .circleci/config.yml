@@ -39,16 +39,13 @@ jobs:
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
   notify:
-    docker:
-      - image: "cimg/base:stable"
+    requires:
+      - build
+    filters:
+      branches:
+        only:
+          - master
     steps:
-      - slack/notify:
+      - slack-notify:
           message: "Build failed!"
           webhook: $SLACK_WEBHOOK_URL
-
-workflows:
-  version: 2.1
-  notify_deploy:
-    jobs:
-      - build
-      - notify
