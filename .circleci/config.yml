@@ -44,10 +44,7 @@ workflows:
       - notify:
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
+
           steps:
             - slack-notify:
                 message: "Build failed!"
