@@ -1,58 +1,43 @@
-version: 2.1
-orbs:
-  browser-tools: circleci/browser-tools@1.1
 jobs:
   build:
     docker:
-      # Specify the version you desire here
-      - image: cimg/php:7.4.14-browsers
-
+      - image: cimg/php:8.0-browsers
+      - image: cimg/mysql:8.0
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: product
+    working_directory: ~/laravel
     steps:
-      - browser-tools/install-browser-tools
       - checkout
-
       - run:
-          name: "Create Environment file and generate app key"
+          name: Install PHP exts
           command: |
-            mv .env.testing .env
-
+            sudo docker-php-ext-install zip
+            sudo docker-php-ext-install pdo_mysql
+            sudo apt-get update
+            sudo apt-get install -y mysql-client
+      - run: sudo composer self-update
       # Download and cache dependencies
       - restore_cache:
           keys:
-            # "composer.lock" can be used if it is committed to the repo
             - v1-dependencies-{{ checksum "composer.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: "Install Dependencies"
-          command: composer install -n --prefer-dist
+      - run: composer install -n --prefer-dist
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
             - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+      - run: ./vendor/bin/phpunit
 
-      # prepare the database
-      - run:
-          name: "Generate App key"
-          command: php artisan key:generate
-
-      - run:
-          name: "Install sqlite"
-          command: sudo apt-get install php7.4-sqlite3
-
-      - run:
-          name: "Create database and run migration"
-          command: |
-            touch database/database.sqlite
-            php artisan migrate --env=testing
-
-      - run:
-          name: "Generate Passport encryption keys"
-          command: php artisan passport:install
-
-      # run tests with phpunit
-      - run:
-          name: "Run Tests"
-          command: php artisan test
+workflows:
+  version: 2
+  notify_deploy:
+    jobs:
+      - build
