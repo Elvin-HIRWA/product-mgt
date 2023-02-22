@@ -8,6 +8,10 @@ jobs:
     docker:
       - image: cimg/php:8.0-browsers
       - image: cimg/mysql:8.0
+      - image: "cimg/base:stable"
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_USER: admin
@@ -38,23 +42,13 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
-
-  notify:
-    docker:
-      - image: "cimg/base:stable"
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
-    steps:
       - slack/notify:
           event: fail
           template: basic_fail_1
 
+  
 workflows:
   send-notification:
     jobs:
       - build
-      - notify:
           context: slack-secrets
-          requires:
-            - build
