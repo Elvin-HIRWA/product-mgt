@@ -48,7 +48,7 @@ jobs:
     steps:
       - slack/notify:
           event: fail
-          template: basic_fail_1
+          template: basic_success_1
 
 workflows:
   send-notification:
