@@ -50,5 +50,5 @@ jobs:
 workflows:
   send-notification:
     jobs:
-      - build
+      - build:
           context: slack-secrets
