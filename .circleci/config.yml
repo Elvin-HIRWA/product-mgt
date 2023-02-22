@@ -38,6 +38,7 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
+    # Add a `when` statement to only run the notification job if the build fails
     when: on_fail
   notify:
     docker:
@@ -52,7 +53,7 @@ jobs:
           event: fail
           template: basic_fail_1
         when: on_fail
-workflows:
+  # Rename the workflow to something more descriptive
   send-build-notifications:
     jobs:
       # Specify that the `notify` job should only run after the `build` job completes
