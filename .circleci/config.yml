@@ -47,7 +47,7 @@ jobs:
           password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
     steps:
       - slack/notify:
-          event: fail
+          event: pass
           template: basic_success_1
 
 workflows:
