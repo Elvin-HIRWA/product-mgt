@@ -12,11 +12,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
-        environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_USER: admin
-          MYSQL_PASSWORD: password
-          MYSQL_DATABASE: product
+        
     working_directory: ~/laravel
     steps:
       - checkout
