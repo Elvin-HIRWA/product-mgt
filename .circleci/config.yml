@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install PHP exts
+          name: Install PHP extensions
           command: |
             sudo docker-php-ext-install zip
             sudo docker-php-ext-install pdo_mysql
@@ -38,25 +38,23 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
-    # Add a `when` statement to only run the notification job if the build fails
+    # Only run the notify job if the build fails
     when: on_fail
   notify:
     docker:
-      - image: "cimg/base:stable"
+      - image: 'cimg/base:stable'
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
-      # Remove the `event: pass` notification as it is not necessary
-      # Add a `when` statement to only send the notification if the build fails
       - slack/notify:
           event: fail
           template: basic_fail_1
-        when: on_fail
-  # Rename the workflow to something more descriptive
+    # Only send the notification if the build fails
+    when: on_fail
+  # Workflow to send build notifications
   send-build-notifications:
     jobs:
-      # Specify that the `notify` job should only run after the `build` job completes
       - build
       - notify:
           context: slack-secrets
