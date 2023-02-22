@@ -38,22 +38,26 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
+    when: on_fail
   notify:
     docker:
-      - image: 'cimg/base:stable'
+      - image: "cimg/base:stable"
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
     steps:
+      # Remove the `event: pass` notification as it is not necessary
+      # Add a `when` statement to only send the notification if the build fails
       - slack/notify:
           event: fail
           template: basic_fail_1
-      - slack/notify:
-          event: pass
-          template: success_tagged_deploy_1
+        when: on_fail
 workflows:
-  send-notification:
+  send-build-notifications:
     jobs:
+      # Specify that the `notify` job should only run after the `build` job completes
       - build
       - notify:
           context: slack-secrets
+        requires:
+          - build
