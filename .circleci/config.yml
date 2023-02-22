@@ -39,22 +39,19 @@ jobs:
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
 
-  notify:
-    docker:
-      - image: "cimg/base:stable"
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
-    steps:
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
-    when: on_fail
+  # notify:
+  #   docker:
+  #     - image: "cimg/base:stable"
+  #       auth:
+  #         username: mydockerhub-user
+  #         password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
+  #   steps:
+  #     - slack/notify:
+  #         event: fail
+  #         template: basic_fail_1
+  #   when: on_fail
 
 workflows:
   send-notification:
     jobs:
       - build
-      - notify:
-          requires:
-            - build
