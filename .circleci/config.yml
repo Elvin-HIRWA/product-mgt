@@ -9,6 +9,8 @@ jobs:
       - image: cimg/php:8.0-browsers
       - image: cimg/mysql:8.0
       - image: "cimg/base:stable"
+    environment:
+      - DB_HOST: testing
 
     working_directory: ~/laravel
     steps:
