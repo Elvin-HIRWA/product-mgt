@@ -9,7 +9,7 @@ jobs:
       - image: cimg/php:8.0-browsers
       - image: cimg/mysql:8.0
       - image: "cimg/base:stable"
-        
+
     working_directory: ~/laravel
     steps:
       - checkout
@@ -42,7 +42,6 @@ jobs:
           event: pass
           template: basic_success_1
 
-  
 workflows:
   send-notification:
     jobs:
